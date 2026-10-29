@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>8B Wheater — Previsão do Tempo 8-Bit Pixel Art</title>
+
+  <!-- Metadados -->
+  <meta name="description"
+    content="8B Wheater é uma aplicação de previsão do tempo em estilo retro 8-bit com geolocalização automática, arte vetorial SVG, efeitos climáticos em tempo real e design responsivo." />
+  <meta name="keywords"
+    content="8B Wheater, pixel art, weather app, front-end portfolio, retro gaming, 8-bit, css effects, open-meteo, javascript" />
+  <meta name="author" content="8B Wheater" />
+  <meta name="theme-color" content="#1a152d" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="8B Wheater — Previsão do Tempo em Pixel Art" />
+  <meta property="og:description"
+    content="Aplicação de clima 8-bit com efeitos CSS de chuva, tempestade, neve, dia e noite dinâmicos." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="img/cenas/dia-limpo.svg" />
+
+  <!-- Favicon SVG -->
+  <link rel="icon" type="image/svg+xml" href="img/favicon.svg?v=3" />
+  <link rel="shortcut icon" href="img/favicon.svg?v=3" />
+
+  <!-- Folha de Estilos Principal -->
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+
+  <!--
+       BARRA DE CONTROLES DO TOPO (Utilitários, Áudio & Simulador)
+       -->
+  <header class="top-controls-bar" role="banner">
+    <div class="brand-badge" onclick="window.location.reload()" title="8B Wheater">
+      <img src="img/logo.svg" alt="8B Wheater" class="logo-icon" />
+      <div class="brand-text">
+        <div class="brand-title-wrap">
+          <span class="brand-title">8B Wheater</span>
+          <span class="pixel-led-live" aria-hidden="true" title="Status Online"></span>
+        </div>
+        <span class="brand-subtitle">Previsão do Tempo • 8-Bit Edition</span>
+      </div>
+    </div>
+
+    <div class="quick-tools">
+      <!-- Botão para Trocar Localização Salva -->
+      <button id="btnTrocarLocal" class="btn-retro btn-accent btn-header-action"
+        title="Trocar sua cidade padrão ou buscar novo local">
+        <img src="img/ui/pin.svg" class="header-btn-icon" alt="" />
+        <span>Trocar Localização</span>
+      </button>
+
+      <!-- Simulador Rápido de Climas (Para teste
+        e demonstração do portfólio) -->
+      <select id="selectSimulador" class="retro-select btn-header-action" title="Simular condições de tempo">
+        <option value="">🕹️ Simular Clima...</option>
+        <option value="dia-limpo">☀️ Dia Ensolarado</option>
+        <option value="noite-limpa">🌙 Noite Estrelada</option>
+        <option value="dia-parcial">⛅ Dia Parcialmente Nublado</option>
+        <option value="noite-parcial">🌤️ Noite Parcial</option>
+        <option value="dia-nublado">☁️ Nublado (Dia)</option>
+        <option value="noite-nublada">☁️ Nublado (Noite)</option>
+        <option value="chuva-fraca">🌦️ Chuva Fraca (Chuvisco)</option>
+        <option value="chuva-dia">🌧️ Chuva (Dia)</option>
+        <option value="chuva-noite">🌧️ Chuva (Noite)</option>
+        <option value="tempestade">⚡ Tempestade com Trovões</option>
+        <option value="neve">❄️ Neve</option>
+        <option value="nevoa">🌫️ Nevoeiro</option>
+        <option value="entardecer">🌅 Pôr do Sol / Entardecer</option>
+      </select>
+
+      <!-- Alternador de Som Chiptune -->
+      <button id="btnToggleSom" class="btn-retro btn-header-action"
+        title="Ligar ou desligar sons sintetizados de 8-bit">
+        <img src="img/ui/som.svg" id="imgIconeSom" class="header-btn-icon" alt="" />
+        <span id="txtSom">Som: ON</span>
+      </button>
+    </div>
+  </header>
+
+  <!--
+  
+       APLICAÇÃO PRINCIPAL: TELA ÚNICA RESPONSIVA (DESKTOP & MOBILE)
+       
+       -->
+  <main class="app-container" id="appMain">
+
+    <!-- 
+    
+         COLUNA ESQUERDA: CONSOLE PRINCIPAL (CENÁRIO 16:9 + CONTROLES)
+         
+          -->
+    <div class="game-window main-console-unit">
+
+      <!-- Barra Superior da Janela estilo Jogo -->
+      <div class="window-header">
+        <!-- Abas de Navegação com Botões Super Famicom (X, Y, B, A) -->
+        <nav class="window-nav" aria-label="Navegação Principal">
+          <button class="nav-btn ativo" data-tab="home" title="Tela Inicial (X)">
+            <span class="sfc-badge sfc-badge-x">X</span>
+            <span class="nav-btn-text">Início</span>
+          </button>
+          <button class="nav-btn" data-tab="search" title="Buscar Município (Y)">
+            <span class="sfc-badge sfc-badge-y">Y</span>
+            <span class="nav-btn-text">Buscar</span>
+          </button>
+          <button class="nav-btn" data-tab="locations" title="Locais Favoritos (B)">
+            <span class="sfc-badge sfc-badge-b">B</span>
+            <span class="nav-btn-text">Salvos</span>
+          </button>
+          <button class="nav-btn" data-tab="history" title="Histórico de Consultas (A)">
+            <span class="sfc-badge sfc-badge-a">A</span>
+            <span class="nav-btn-text">Histórico</span>
+          </button>
+        </nav>
+
+        <!-- Ações Rápidas da Janela com Ícones Grandes (18px) -->
+        <div class="window-actions">
+          <button id="btnAtualizarTempo" class="action-btn" title="Atualizar dados meteorológicos">
+            <img src="img/ui/atualizar.svg" class="action-btn-icon" alt="" />
+            <span class="btn-label">Atualizar</span>
+          </button>
+          <button id="btnCompartilhar" class="action-btn" title="Compartilhar link do projeto">
+            <img src="img/ui/compartilhar.svg" class="action-btn-icon" alt="" />
+            <span class="btn-label">Compartilhar</span>
+          </button>
+          <!-- Botão Menu Hambúrguer (Mobile) -->
+          <button id="btnMobileMenu" class="action-btn mobile-only-btn" title="Abrir Menu">
+            ☰
+          </button>
+        </div>
+      </div>
+
+      <!-- Menu Mobile Desdobrável -->
+      <div id="mobileDropdownMenu" class="mobile-nav-drawer">
+        <button class="mobile-nav-link" data-tab="home">🏠 Início</button>
+        <button class="mobile-nav-link" data-tab="search">🔍 Buscar Cidade</button>
+        <button class="mobile-nav-link" data-tab="locations">⭐ Locais Salvos</button>
+        <button class="mobile-nav-link" data-tab="history">📜 Histórico</button>
+        <button id="btnMobileGps" class="mobile-nav-link">📍 Minha Localização GPS</button>
+      </div>
+
+      <!-- Barra de Busca de Cidades Integrada com Ícone GPS Aumentado -->
+      <div class="search-section">
+        <div class="search-bar-box">
+          <img src="img/ui/lupa.svg" class="search-field-icon" alt="" />
+          <input type="text" id="inputBuscaCidade" class="search-text-input"
+            placeholder="Buscar município brasileiro (ex: São Paulo, Salvador, Curitiba, Manaus)..."
+            aria-label="Buscar cidade brasileira" autocomplete="off" />
+          <button id="btnGpsBusca" class="btn-gps" title="Obter clima da sua localização atual via GPS">
+            <img src="img/ui/pin.svg" class="gps-btn-icon" alt="" />
+            <span class="gps-btn-label">GPS AUTO</span>
+          </button>
+        </div>
+        <!-- Resultados com Autocompletar -->
+        <div id="dropdownResultadosBusca" class="search-results-popup" role="listbox"></div>
+      </div>
+
+      <!-- CENÁRIO PRINCIPAL DE CLIMA (A Janela Pixel Art Dinâmica 16:9) -->
+      <div class="weather-scene-viewport" id="viewportClima" role="region" aria-label="Visualização do Clima">
+
+        <!-- Imagem SVG do Cenário (Dia, Noite, Sol, Chuva, etc.) -->
+        <img id="imgCenaCanvas" class="scene-image" src="img/cenas/dia-limpo.svg" alt="Cenário de Clima Pixel Art" />
+
+        <!-- Camadas de Efeitos Atmosféricos em CSS Puro -->
+        <div class="fx-rain-light" id="fxChuvaFraca" aria-hidden="true"></div>
+        <div class="fx-rain" id="fxChuva" aria-hidden="true"></div>
+        <div class="fx-rain-foreground" id="fxChuvaForte" aria-hidden="true"></div>
+        <div class="fx-snow" id="fxNeve" aria-hidden="true"></div>
+        <div class="fx-fog" id="fxNevoa" aria-hidden="true"></div>
+        <div class="fx-lightning" id="fxRaio" aria-hidden="true"></div>
+
+        <!-- HUD Sobreposto com Informações do Tempo -->
+        <div class="scene-hud-overlay">
+
+          <!-- Bloco Superior Esquerdo: Cidade & Temperatura Principal -->
+          <div class="hud-top-info">
+            <div class="hud-city-row">
+              <span id="hudNomeCidade" class="hud-city-title">Carregando...</span>
+              <button id="btnFavoritar" class="btn-fav-star" title="Salvar nos Favoritos">★</button>
+            </div>
+
+            <div class="hud-temperature-row">
+              <span id="hudValorTemp" class="hud-big-temp">--°</span>
+              <span id="hudUnidadeTemp" class="hud-temp-unit">°C</span>
+            </div>
+
+            <div id="hudNomeCondicao" class="hud-condition-text">
+              Carregando clima...</div>
+            <div id="hudSensacaoTermica" class="hud-feels-like">
+              Sensação térmica --°C</div>
+
+            <!-- Mini Métricas com Ícones Maiores (Umidade, Vento, Chuva) -->
+            <div class="hud-quick-metrics">
+              <div class="metric-badge">
+                <img src="img/ui/gota.svg" class="badge-icon" alt="Umidade" />
+                <div class="badge-data">
+                  <span class="badge-label">Umidade</span>
+                  <span id="hudUmidade" class="badge-val">--%</span>
+                </div>
+              </div>
+
+              <div class="metric-badge">
+                <img src="img/ui/vento.svg" class="badge-icon" alt="Vento" />
+                <div class="badge-data">
+                  <span class="badge-label">Vento</span>
+                  <span id="hudVento" class="badge-val">-- km/h</span>
+                </div>
+              </div>
+
+              <div class="metric-badge">
+                <img src="img/ui/guarda.svg" class="badge-icon" alt="Chuva" />
+                <div class="badge-data">
+                  <span class="badge-label">Precipitação</span>
+                  <span id="hudPrecipitacao" class="badge-val">-- mm</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Prompt Central Interativo "Press Start for Details" -->
+          <div class="hud-center-interactive">
+            <button id="btnPressStart" class="press-start-button">
+              ▶ PRESSIONE START PARA DETALHES
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Telas Secundárias (Abas: Buscar, Locais Salvos, Histórico) -->
+      <section id="abaPainelSalvos" class="tab-panel-view">
+        <div class="panel-top-bar">
+          <h3 class="panel-title">⭐ LOCAIS SALVOS (LOCAL STORAGE)</h3>
+          <span class="panel-subtitle">Suas cidades favoritas ficam gravadas neste navegador</span>
+        </div>
+        <div id="containerLocaisSalvos" class="saved-cards-grid"></div>
+      </section>
+
+      <section id="abaPainelHistorico" class="tab-panel-view">
+        <div class="panel-top-bar">
+          <h3 class="panel-title">📜 HISTÓRICO DE BUSCAS RECENTES</h3>
+          <button id="btnLimparHistorico" class="btn-retro">Limpar Histórico</button>
+        </div>
+        <div id="containerHistorico" class="history-items-list"></div>
+      </section>
+
+    </div>
+
+    <!-- ========================================================================
+         COLUNA DIREITA: ESTAÇÃO COMPANHEIRA DE PREVISÃO 5 DIAS & TELEMETRIA
+         (MÓDULO INDEPENDENTE COM DESIGN SENIOR RETRÔ)
+         ======================================================================== -->
+    <aside class="forecast-station-unit" id="shelfPrevisao">
+
+      <!-- Topo da Estação com Identificação -->
+      <div class="station-header">
+        <div class="station-brand">
+          <div class="station-titles">
+            <h2 class="station-title">PREVISÃO DENTRO DE 5 DIAS</h2>
+            <span class="station-subtitle">
+              RADAR METEOROLÓGICO INMET / SATELLITE </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dica Interativa -->
+      <div class="station-hint-bar">
+        <span>SELECIONE UM DIA PARA VER TELEMETRIA COMPLETA</span>
+      </div>
+
+      <!-- Grade / Lista dos 5 Dias de Previsão com Ícones Maiores -->
+      <div id="gridPrevisao5Dias" class="forecast-cards-container">
+        <!-- Preenchido dinamicamente via JS -->
+      </div>
+
+      <!-- Módulo Extra de Telemetria Ambiental: UV, Pressão e Sol -->
+      <div class="station-telemetry-box">
+        <div class="telemetry-box-header">
+          <span class="telemetry-box-title"> SENSORES AMBIENTAIS</span>
+
+        </div>
+
+        <div class="telemetry-mini-grid">
+          <!-- Card UV -->
+          <div class="telemetry-card">
+            <span class="telem-card-label">☀️ ÍNDICE UV</span>
+            <span class="telem-card-val" id="sideUv">-- / 11</span>
+            <div class="uv-track">
+              <div class="uv-fill" id="sideUvBar" style="width: 50%;"></div>
+            </div>
+          </div>
+
+          <!-- Card Pressão -->
+          <div class="telemetry-card">
+            <span class="telem-card-label">🧭 PRESSÃO ATM</span>
+            <span class="telem-card-val" id="sidePressao">-- hPa</span>
+            <span class="telem-card-tag">ESTÁVEL</span>
+          </div>
+
+          <!-- Card Sol -->
+          <div class="telemetry-card telemetry-card-wide">
+            <span class="telem-card-label">CICLO SOLAR (HORA LOCAL)</span>
+            <div class="sun-times-row">
+              <span class="sun-time-item"><span class="sun-time-label">Nascer do Sol:</span> <strong
+                  id="sideNascer">--:--</strong></span>
+              <span class="sun-time-item"><span class="sun-time-label">Pôr do Sol:</span> <strong
+                  id="sidePor">--:--</strong></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Botão de Ação Inferior: Relatório Completo -->
+      <div class="station-footer-action">
+        <button id="btnSideDetalhes" class="btn-station-open" title="Ver previsão horária completa de 16 horas">
+          <img src="img/ui/relogio.svg" class="station-btn-icon" alt="" />
+          <span>VER RELATÓRIO HORÁRIO COMPLETO</span>
+        </button>
+      </div>
+
+    </aside>
+
+  </main>
+
+  <!-- 
+       MODAL OBRIGATÓRIO DE PRIMEIRA VISITA (Definir Localização)
+        -->
+  <div id="onboardingModal" class="modal-backdrop-onboarding" role="dialog" aria-modal="true"
+    aria-labelledby="onboardingTitle">
+    <div class="onboarding-box">
+      <div class="onboarding-header">
+        <span class="modal-pixel-icon">🕹️</span>
+        <h2 id="onboardingTitle" class="onboarding-title">BEM-VINDO AO 8B WHEATER!</h2>
+      </div>
+
+      <p class="onboarding-desc">
+        Para exibir o clima em pixel art, o site precisa da sua localização.
+        Ela será salva no <strong>Local Storage</strong> para que você não precise digitar novamente nas próximas
+        visitas.
+      </p>
+
+      <div class="onboarding-actions">
+        <!-- Opção 1: GPS Automático -->
+        <button id="btnOnboardingGps" class="btn-retro btn-accent onboarding-btn-lg">
+          <img src="img/ui/pin.svg" class="gps-btn-icon" alt="" />
+          <span>USAR MEU GPS AUTOMÁTICO</span>
+        </button>
+
+        <div class="onboarding-divider">
+          <span>— OU BUSQUE SUA CIDADE —</span>
+        </div>
+
+        <!-- Opção 2: Busca Manual -->
+        <div class="onboarding-search-box">
+          <input type="text" id="inputOnboardingBusca" class="search-text-input"
+            placeholder="Digite o nome da sua cidade brasileira (ex: Campinas, Natal)..." autocomplete="off" />
+          <div id="dropdownOnboardingResultados" class="search-results-popup"></div>
+        </div>
+
+        <!-- Cidades Sugeridas Rápidas (Capitais do Brasil) -->
+        <div class="quick-cities-chips">
+          <span class="chips-label">Sugestões rápidas (Brasil):</span>
+          <div class="chips-list">
+            <button class="chip-btn" data-cidade="São Paulo" data-estado="SP" data-id="244" data-ibge="3550308">São
+              Paulo (SP)</button>
+            <button class="chip-btn" data-cidade="Rio de Janeiro" data-estado="RJ" data-id="241" data-ibge="3304557">Rio
+              de Janeiro (RJ)</button>
+            <button class="chip-btn" data-cidade="Brasília" data-estado="DF" data-id="61" data-ibge="5300108">Brasília
+              (DF)</button>
+            <button class="chip-btn" data-cidade="Salvador" data-estado="BA" data-id="243" data-ibge="2927408">Salvador
+              (BA)</button>
+            <button class="chip-btn" data-cidade="Belo Horizonte" data-estado="MG" data-id="222"
+              data-ibge="3106200">Belo Horizonte (MG)</button>
+            <button class="chip-btn" data-cidade="Curitiba" data-estado="PR" data-id="227" data-ibge="4106902">Curitiba
+              (PR)</button>
+            <button class="chip-btn" data-cidade="Porto Alegre" data-estado="RS" data-id="237" data-ibge="4314902">Porto
+              Alegre (RS)</button>
+            <button class="chip-btn" data-cidade="Recife" data-estado="PE" data-id="239" data-ibge="2611606">Recife
+              (PE)</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 
+       MODAL DE DETALHES RETRO ("PRESS START FOR DETAILS")
+-->
+  <div id="modalDetalhes" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modalDetalhesTitulo">
+    <div class="modal-window">
+      <div class="modal-header-bar">
+
+        <h3 id="modalDetalhesTitulo" class="modal-header-title">
+          São Paulo (SP) — Detalhes Meteorológicos (INMET)</h3>
+
+        <button id="btnFecharDetalhes" class="btn-close-modal" title="Fechar (ESC)">
+          <img src="img/ui/fechar.svg" class="modal-close-icon" alt="" />
+          <span>FECHAR</span>
+        </button>
+      </div>
+
+      <!-- Métricas em Grade -->
+      <div class="details-grid-stats">
+        <div class="stat-card">
+          <span class="stat-label">Sensação</span>
+          <span id="detSensacao" class="stat-value">--°C</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-label">Umidade</span>
+          <span id="detUmidade" class="stat-value">--%</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-label">Vento</span>
+          <span id="detVento" class="stat-value">-- km/h</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-label">Precipitação</span>
+          <span id="detPrecip" class="stat-value">-- mm</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-label">Pressão</span>
+          <span id="detPressao" class="stat-value">-- hPa</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-label">Índice UV</span>
+          <span id="detUv" class="stat-value">-- / 11</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-label">Nascer do Sol</span>
+          <span id="detNascer" class="stat-value">--:--</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-label">Pôr do Sol</span>
+          <span id="detPor" class="stat-value">--:--</span>
+        </div>
+      </div>
+
+      <!-- Gráfico Horário em Pixel Art -->
+      <div class="hourly-forecast-box">
+        <div class="hourly-title">📊 PREVISÃO HORÁRIA (PRÓXIMAS 16 HORAS)</div>
+        <div id="containerBarrasHorarias" class="hourly-bars-track"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification em Pixel Art -->
+  <div id="toastNotificacao" class="pixel-toast" role="status" aria-live="polite">
+    <span class="toast-star">★</span>
+    <span id="toastTexto">Mensagem</span>
+  </div>
+
+  <!-- Rodapé  -->
+  <footer class="site-footer">
+    <div class="footer-center-text">
+      <p>8B WHEATER • PROJETO FRONT-END </p>
+      <p>Dados fornecidos por <strong>APIs Públicas</strong> </p>
+    </div>
+
+    <!-- Botões Sociais Estáticos no Canto Inferior Direito (Sem Fundo) -->
+    <div class="footer-social-dock" aria-label="Links Sociais do Desenvolvedor">
+      <a href="https://github.com/breno2274" target="_blank" rel="noopener noreferrer"
+        class="retro-social-btn btn-social-github" title="Acessar GitHub (@breno2274)">
+        <img src="img/ui/github.svg" class="social-btn-icon" alt="GitHub" />
+      </a>
+      <a href="https://www.linkedin.com/in/breno-dos-santos-santana-2723a4213/" target="_blank"
+        rel="noopener noreferrer" class="retro-social-btn btn-social-linkedin" title="Acessar LinkedIn (Breno Santana)">
+        <img src="img/ui/linkedin.svg" class="social-btn-icon" alt="LinkedIn" />
+      </a>
+    </div>
+  </footer>
+
+  <!-- Scripts (Compatível com file:// e servidores web) -->
+  <script src="js/bundle.js" defer></script>
+</body>
+
+</html>
