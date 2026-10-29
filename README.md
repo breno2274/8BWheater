@@ -4,7 +4,7 @@ Aplicação web de previsão do tempo desenvolvida com estética retrô de jogos
 
 ---
 
-## 🎮 Como Funciona o Sistema
+## Como Funciona o Sistema
 
 O 8B Wheater opera como uma aplicação de tela única que conecta dados meteorológicos reais à interface visual:
 
@@ -42,7 +42,7 @@ O projeto consome APIs públicas abertas e gratuitas, sem necessidade de chaves 
 
 ---
 
-## 🛠️ Tecnologias e Linguagens
+## Tecnologias e Linguagens
 
 Construído 100% com tecnologias nativas da web, sem frameworks pesados ou dependências de build:
 
@@ -59,7 +59,7 @@ Construído 100% com tecnologias nativas da web, sem frameworks pesados ou depen
 
 ---
 
-## 📁 Estrutura do Projeto
+## Estrutura do Projeto
 
 ```
 8Bwheater/
@@ -87,7 +87,7 @@ Construído 100% com tecnologias nativas da web, sem frameworks pesados ou depen
 
 ---
 
-## 🚀 Como Executar Localmente
+## Como Executar Localmente
 
 Como o projeto é totalmente estático, você pode executá-lo de duas formas:
 
