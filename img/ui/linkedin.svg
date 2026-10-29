@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="32" height="32">
+  <title>LinkedIn</title>
+  <!-- Base azul oficial do LinkedIn -->
+  <path fill="#0a66c2" d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2z"/>
+  <!-- Letras 'in' oficiais em branco -->
+  <path fill="#ffffff" d="M3.7 5.3a1.4 1.4 0 1 0 0-2.8 1.4 1.4 0 0 0 0 2.8zM2.4 13.5h2.6V6.7H2.4v6.8zm4.2 0h2.6V9.9c0-1 .2-1.9 1.4-1.9 1.2 0 1.2 1.1 1.2 2v3.5h2.6V9.4c0-2-.4-3.6-2.8-3.6-1.1 0-1.9.6-2.2 1.2h-.1V6.7H6.6v6.8z"/>
+</svg>
