@@ -1,155 +1,112 @@
-# 🎮 8B Wheater — Previsão do Tempo 8-Bit Pixel Art
+# 8B Wheater — Previsão do Tempo em Pixel Art
 
-<div align="center">
+Aplicação web de previsão do tempo desenvolvida em JavaScript puro, CSS e HTML, com estética retrô inspirada em consoles clássicos portáteis (como Game Boy e Super Famicom). O projeto consome dados meteorológicos em tempo real por meio de APIs públicas abertas, mapeia as condições para cenários vetoriais em pixel art (SVG) e processa efeitos visuais e sonoros diretamente no navegador.
 
-![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Deploy-brightgreen?style=for-the-badge&logo=github)
-![Status](https://img.shields.io/badge/Status-Online%20%26%20Ativo-22c55e?style=for-the-badge)
-![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
-![CSS3](https://img.shields.io/badge/CSS3-Pixel%20Art-1572B6?style=for-the-badge&logo=css3)
-![HTML5](https://img.shields.io/badge/HTML5-Semântico-E34F26?style=for-the-badge&logo=html5)
+## Acesso Online (GitHub Pages)
 
-<br />
+A aplicação está hospedada e disponível para acesso direto pelo GitHub Pages no seguinte endereço:
 
-### 🌐 [CLIQUE AQUI PARA ACESSAR A APLICAÇÃO ONLINE NO GITHUB PAGES](https://breno2274.github.io/8BWheater/)
+**https://breno2274.github.io/8BWheater/**
 
-**Link de Acesso Direto:** [https://breno2274.github.io/8BWheater/](https://breno2274.github.io/8BWheater/)
-
-*(Disponível instantaneamente para navegadores Desktop e Celulares/Mobile, sem necessidade de instalação)*
-
-</div>
+O site é totalmente estático e responsivo, funcionando tanto em navegadores de computadores desktop quanto em smartphones e tablets.
 
 ---
 
-## 🕹️ Sobre o Projeto
+## Funcionalidades
 
-O **8B Wheater** é uma aplicação meteorológica front-end interativa desenvolvida com estética retrô inspirada em consoles clássicos portáteis dos anos 90 e no design contemporâneo de dispositivos como o *AYN Thor* (com botões de ação nas cores do *Super Famicom*).
-
-A aplicação consome dados meteorológicos ao vivo de estações e satélites públicos globais, convertendo telemetria real em belos cenários procedurais em **Pixel Art SVG**, animações em camadas de CSS puro (chuva, neve, névoa, raios e tempestades) e síntese sonora chiptune em tempo real via **Web Audio API**.
-
----
-
-## ✨ Principais Funcionalidades
-
-- **🌐 Acesso Imediato via Web (GitHub Pages)**: Hospedado de forma 100% estática e otimizada, permitindo acesso universal via link direto em qualquer plataforma.
-- **📍 Geolocalização Automática Inteligente**:
-  - Detecção via GPS nativo do dispositivo com geocodificação reversa para identificar município e estado brasileiro.
-  - Modal de integração inicial (Onboarding) com salvamento de preferências no `localStorage`.
-- **🔍 Busca de Municípios com Autocomplete**:
-  - Pesquisa rápida de qualquer cidade do Brasil e do mundo com sugestões instantâneas de capitais.
-- **☀️ Cenários Climáticos Dinâmicos (16:9 em Pixel Art)**:
-  - Arte vetorial SVG procedural renderizada em tempo real para: *Dia Ensolarado, Noite Estrelada, Dia Parcial, Noite Parcial, Nublado, Chuva Fraca, Chuva Moderada/Forte, Tempestade com Trovões, Neve, Nevoeiro e Pôr do Sol/Entardecer*.
-- **🌅 Ciclo Solar e Pôr do Sol Astronômico**:
-  - O sistema calcula os horários exatos de nascer e pôr do sol baseados na latitude/longitude da cidade. Durante a janela do crepúsculo (25 min antes até 20 min após o pôr do sol), o cenário transiciona suavemente para a paleta alaranjada do ocaso.
-- **🌧️ Filtro e Limiar de Precipitação Real**:
-  - Evita falsos positivos de chuva: precipitações de até 0.2 mm são interpretadas como umidade residual/nublado; efeitos de pingos só disparam quando há chuva real perceptível.
-- **🔊 Sintetizador de Áudio Chiptune 8-Bit (Sem MP3)**:
-  - Sons sintetizados matematicamente pelo navegador usando a **Web Audio API** nativa (osciladores `square`, `sawtooth` e filtros passa-baixa). Sem downloads de arquivos externos de áudio pesados.
-- **📊 Telemetria Meteorológica Completa**:
-  - Temperatura atual, sensação térmica, umidade relativa, velocidade do vento, pressão atmosférica (hPa) e índice de radiação UV com barra de risco.
-  - Relatório horário das próximas 16 horas com gráfico em barras retrô.
-  - Previsão estendida para os próximos 5 dias com temperaturas máximas e mínimas.
-- **⭐ Favoritos & Histórico Local**:
-  - Salve suas cidades prediletas e consulte seu histórico recente salvo no `localStorage`.
-- **🎮 Simulador de Climas Integrado**:
-  - Seletor rápido no topo para testar e demonstrar qualquer clima e efeito sonoro na hora, ideal para portfólio e testes.
+- **Acesso direto via navegador**: Hospedagem estática pelo GitHub Pages, sem necessidade de instalação ou login.
+- **Geolocalização via GPS**: Identificação automática do município e estado do usuário utilizando a API de geolocalização do navegador e geocodificação reversa.
+- **Busca de cidades**: Campo de pesquisa com autocompletar para qualquer localidade brasileira ou mundial, com atalhos para capitais.
+- **Cenários dinâmicos em SVG**: Ilustrações em pixel art que mudam de acordo com as condições do tempo (dia ensolarado, noite estrelada, nublado, chuva fraca, chuva forte, tempestade, neve, neblina e pôr do sol).
+- **Cálculo de ciclo solar**: Transição automática para o cenário de pôr do sol baseada nos horários calculados de nascer e pôr do sol para as coordenadas locais.
+- **Filtro de precipitação real**: Valores de precipitação abaixo de 0.2 mm são tratados como umidade residual/nublado, disparando efeitos de chuva apenas quando há volume real de chuva.
+- **Áudio chiptune procedural**: Sons sintetizados em tempo real com a Web Audio API (usando osciladores e filtros), sem uso de arquivos de áudio externos (MP3 ou WAV).
+- **Telemetria meteorológica**:
+  - Temperatura atual e sensação térmica.
+  - Umidade relativa do ar, velocidade do vento e pressão atmosférica.
+  - Índice UV com barra de classificação.
+  - Horários de nascer e pôr do sol.
+  - Gráfico de previsão horária para as próximas 16 horas.
+  - Previsão estendida para os próximos 5 dias com temperaturas máxima e mínima.
+- **Favoritos e histórico local**: Persistência de preferências e buscas anteriores no localStorage do navegador.
+- **Simulador de clima**: Menu suspenso para alternar manualmente entre qualquer condição de clima e testar os cenários e sons.
 
 ---
 
-## 📱 Design Responsivo Especializado (Mobile & Desktop)
+## Design e Responsividade
 
-O projeto conta com arquitetura visual independente para cada tipo de dispositivo:
+A interface foi projetada para funcionar em duas disposições principais:
 
-| Aspecto | Versão Desktop | Versão Mobile (Smartphones & Tablets) |
+- **Desktop**: Layout inspirado em um console de mesa widescreen, com moldura de proteção, barra de controles com botões de ação e painel lateral com sensores e previsão estendida de 5 dias.
+- **Mobile**: Layout vertical empilhado, com controles adaptados para toque (área mínima de toque de 36px), barra de ferramentas compacta em duas linhas e métricas essenciais em linha única para não cobrir a arte do cenário.
+
+---
+
+## APIs Utilizadas
+
+O projeto utiliza apenas endpoints públicos gratuitos e que não exigem chaves privadas no código client-side:
+
+| Serviço | Endpoint | Finalidade |
 | :--- | :--- | :--- |
-| **Layout Geral** | Módulos lado a lado em tela panorâmica inspirada em estação console de mesa | Empilhamento vertical fluido com visual estilo videogame portátil retrô |
-| **Controles de Topo** | Barra de ferramentas horizontal espaçosa | Grid ergonômico de 2 linhas (*Linha 1: Localização + Som lado a lado; Linha 2: Simulador*) |
-| **Navegação** | Abas Super Famicom com atalhos físicos `(X, Y, B, A)` | Barra de status retrô `● 8-BIT RADAR` com botões táteis (36×36px) e menu gaveta |
-| **Métricas Rápidas** | Badges com ícones e dados complementares | Grade de 3 colunas em **linha única**, liberando toda a visibilidade da arte pixel |
-| **Cards de 5 Dias** | Visualização em grade expansiva com destaque | Lista vertical alinhada (`Dia \| Ícone \| Condição \| Mín/Máx`) |
-| **Experiência ao Toque** | Efeitos de hover tridimensionais (relevo 3D) | Sem atraso de clique (`tap-highlight: transparent`), modais com rolagem suave |
+| Open-Meteo Forecast | api.open-meteo.com/v1/forecast | Temperatura, sensação térmica, umidade, vento, pressão, código WMO, índice UV e previsões horária e diária. |
+| Open-Meteo Geocoding | geocoding-api.open-meteo.com/v1/search | Busca e autocompletar de cidades por nome com coordenadas geográficas. |
+| OpenStreetMap Nominatim | nominatim.openstreetmap.org/reverse | Geocodificação reversa para obter nome do município a partir das coordenadas do GPS. |
+| BrasilAPI / CPTEC | brasilapi.com.br/api/cptec/v1 | Serviço alternativo de consulta meteorológica para municípios brasileiros. |
 
 ---
 
-## 📡 APIs e Fontes de Dados
+## Tecnologias
 
-O projeto consome exclusivamente serviços públicos e abertos, garantindo total transparência e funcionamento sem chaves de API pagas ou privadas:
-
-| API / Serviço | Endpoint | Finalidade |
-| :--- | :--- | :--- |
-| **Open-Meteo Forecast** | `api.open-meteo.com/v1/forecast` | Telemetria meteorológica: temperaturas, umidade, vento, pressão, código WMO, radiação UV, ciclo solar e previsão para 5 dias. |
-| **Open-Meteo Geocoding** | `geocoding-api.open-meteo.com/v1/search` | Mecanismo de busca geográfica mundial por nome de município e estado. |
-| **OpenStreetMap Nominatim** | `nominatim.openstreetmap.org/reverse` | Geocodificação reversa precisa para detecção do nome do município via coordenadas GPS. |
-| **BrasilAPI / CPTEC** | `brasilapi.com.br/api/cptec/v1` | Camada de contingência para dados climáticos de cidades brasileiras. |
+- **HTML5**: Estrutura semântica e acessibilidade.
+- **CSS3**: Estilos customizados, layout flexbox/grid, animações via keyframes para efeitos climáticos e responsividade por media queries.
+- **JavaScript (ES6+)**: Consumo de APIs via Fetch, manipulação de DOM e versionamento modular/unificado (`bundle.js`).
+- **Web Audio API**: Síntese de áudio procedural para os efeitos sonoros da interface.
+- **SVG**: Gráficos vetoriais renderizados em formato pixel art para garantir nitidez em qualquer resolução.
 
 ---
 
-## 🛠️ Tecnologias Utilizadas
+## Estrutura do Projeto
 
-- **HTML5 Semântico**: Estruturação limpa, acessibilidade (WAI-ARIA) e metadados Open Graph.
-- **CSS3 Puro (Vanilla CSS)**:
-  - Efeitos em pixel art com relevos 3D mecânicos e bordas chanfradas.
-  - Animações `@keyframes` (chuva, neve, neblina, flashes de relâmpagos e scanlines CRT).
-  - Media queries sob medida para Desktop, Tablets, Smartphones e telas ultra-compactas.
-- **JavaScript Moderno (ES6+)**:
-  - Módulos ES6 e versão compilada `bundle.js` para suporte tanto a servidores web quanto ao protocolo local `file:///`.
-  - Manipulação assíncrona com `async/await` e `fetch`.
-- **Web Audio API**: Processamento e síntese sonora de chiptunes 8-bit em tempo real.
-- **SVG Vetorial Procedural**: Todos os cenários e ícones desenhados em vetor para nitidez máxima em telas Retina e 4K.
-
----
-
-## 📂 Estrutura de Arquivos
-
-```text
+```
 8BWheater/
 ├── .github/
 │   └── workflows/
-│       └── deploy.yml    # Workflow de deploy automático para o GitHub Pages
-├── index.html            # Ponto de entrada e estrutura HTML5
-├── README.md             # Documentação técnica completa
+│       └── deploy.yml    # Workflow de publicação automática no GitHub Pages
+├── index.html            # Estrutura HTML da página
+├── README.md             # Documentação do projeto
 ├── css/
-│   └── style.css         # Estilização completa, design system retrô e responsividade
+│   └── style.css         # Folha de estilos e regras responsivas
 ├── js/
-│   ├── api.js            # Módulo de consumo das APIs (Open-Meteo, Nominatim, BrasilAPI)
-│   ├── weather.js        # Interpretador de códigos meteorológicos WMO e ciclo solar
-│   ├── audio.js          # Síntese de áudio chiptune via Web Audio API
-│   ├── storage.js        # Gerenciamento de favoritos e histórico no LocalStorage
-│   ├── app.js            # Lógica central da aplicação, eventos e temporizadores
-│   └── bundle.js         # Pacote unificado pronto para GitHub Pages e execução local
+│   ├── api.js            # Integração com as APIs externas
+│   ├── weather.js        # Interpretação dos códigos de clima e ciclo solar
+│   ├── audio.js          # Síntese sonora com Web Audio API
+│   ├── storage.js        # Persistência de dados no localStorage
+│   ├── app.js            # Lógica geral da aplicação e eventos de interface
+│   └── bundle.js         # Código unificado para execução direta
 ├── img/
-│   ├── cenas/            # Cenários de clima em SVG (dia, noite, chuva, neve, tempestade, etc.)
-│   ├── icones/           # Ícones das condições do tempo em pixel art
-│   ├── ui/               # Ícones de interface (lupa, pin, som, atualizar, etc.)
-│   ├── fx/               # Efeitos visuais e sobreposições
-│   ├── logo.svg          # Logotipo 8-bit
-│   └── favicon.svg       # Ícone de aba do navegador
+│   ├── cenas/            # Cenários de clima em SVG
+│   ├── icones/           # Ícones das condições climáticas
+│   ├── ui/               # Ícones da interface
+│   ├── fx/               # Efeitos gráficos sobrepostos
+│   ├── logo.svg          # Logotipo
+│   └── favicon.svg       # Favicon
 └── scripts/
-    └── gerar-arte.mjs    # Script procedural em Node.js para geração de assets vetoriais
+    └── gerar-arte.mjs    # Script auxiliar em Node.js para geração dos vetores
 ```
 
 ---
 
-## 🚀 Como Executar o Projeto
+## Como Executar Localmente
 
-### Opção 1: Acessar Online (Recomendado)
-Acesse diretamente pelo GitHub Pages sem precisar baixar nem configurar nada:
-👉 **[https://breno2274.github.io/8BWheater/](https://breno2274.github.io/8BWheater/)**
+Como a aplicação é puramente estática e não possui dependências de compilação, é possível executá-la diretamente:
 
-### Opção 2: Executar Localmente
-Como a aplicação é 100% estática, basta clonar o repositório e abrir:
+### 1. Abertura direta
+Basta abrir o arquivo `index.html` em qualquer navegador. O arquivo `js/bundle.js` permite a execução pelo protocolo `file:///` sem restrições de CORS de módulos ES.
+
+### 2. Com servidor local
+Se preferir rodar por um servidor HTTP:
 
 ```bash
-# 1. Clone o repositório
-git clone https://github.com/breno2274/8BWheater.git
-
-# 2. Acesse a pasta do projeto
-cd 8BWheater
-
-# 3. Abra diretamente o index.html no navegador:
-# No Windows:
-start index.html
-
-# Ou execute com um servidor local simples:
 # Com Node.js
 npx serve .
 
@@ -157,29 +114,21 @@ npx serve .
 python -m http.server 8080
 ```
 
----
-
-## 🌐 Publicação no GitHub Pages
-
-O projeto está configurado para publicação no **GitHub Pages**:
-
-1. **Deploy Automático por GitHub Actions**:
-   - Cada atualização enviada aos branches `main` ou `feat/atualizacao/doc` dispara a action `.github/workflows/deploy.yml`.
-   - O GitHub publica automaticamente os artefatos estáticos no ambiente de produção.
-2. **Branch Alternativa `gh-pages`**:
-   - Também é mantida a branch `gh-pages` para suporte nativo imediato caso a opção clássica de deploy por branch esteja selecionada nas configurações do repositório (*Settings > Pages*).
+Em seguida, acesse no navegador pelo endereço `http://localhost:8080`.
 
 ---
 
-## 👨‍💻 Autor
+## Publicação no GitHub Pages
+
+O deploy é configurado de duas formas no repositório:
+
+1. **GitHub Actions**: O arquivo `.github/workflows/deploy.yml` compila e publica os arquivos estáticos a cada push nas branches configuradas.
+2. **Branch gh-pages**: Uma branch dedicada (`gh-pages`) está publicada no repositório para deploy direto pelas configurações de Pages do GitHub (Settings > Pages > Deploy from a branch > gh-pages / root).
+
+---
+
+## Autor
 
 Desenvolvido por **Breno Santana**:
-
-- **GitHub**: [@breno2274](https://github.com/breno2274)
-- **LinkedIn**: [Breno Santana](https://www.linkedin.com/in/breno-dos-santos-santana-2723a4213/)
-
----
-
-<div align="center">
-  <sub>Construído com café, código limpo e amor aos jogos clássicos de 8-Bit. 🕹️☁️</sub>
-</div>
+- GitHub: https://github.com/breno2274
+- LinkedIn: https://www.linkedin.com/in/breno-dos-santos-santana-2723a4213/
