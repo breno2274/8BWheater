@@ -2071,157 +2071,792 @@ body {
   }
 }
 
-/* Breakpoint Mobile / Tablet: Volta ao formato empilhado verticalmente */
+/* Breakpoint Mobile / Tablet: Layout vertical empilhado ultra-polido */
 @media (max-width: 960px) {
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
   body {
     padding: 6px;
   }
+
+  /* BARRA SUPERIOR DE CONTROLES NO TABLET / MOBILE */
   .top-controls-bar {
-    padding: 8px 12px;
+    padding: 8px 10px;
     max-width: 100%;
     margin-bottom: 8px;
+    gap: 8px;
+    border-width: 3px;
   }
+
+  .brand-badge {
+    gap: 10px;
+  }
+
+  .logo-icon {
+    width: 34px;
+    height: 34px;
+  }
+
+  .brand-title {
+    font-size: 22px;
+  }
+
+  .brand-subtitle {
+    font-size: 7px;
+  }
+
+  .quick-tools {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+  }
+
+  #btnTrocarLocal.btn-header-action {
+    grid-column: 1 / 2;
+    width: 100%;
+    min-width: 0;
+    max-width: none;
+    flex: none;
+    height: 38px;
+    padding: 0 8px;
+    font-size: 8px;
+  }
+
+  #btnToggleSom.btn-header-action {
+    grid-column: 2 / 3;
+    width: 100%;
+    min-width: 0;
+    max-width: none;
+    flex: none;
+    height: 38px;
+    padding: 0 8px;
+    font-size: 8px;
+  }
+
+  #selectSimulador.btn-header-action {
+    grid-column: 1 / -1;
+    width: 100%;
+    min-width: 0;
+    max-width: none;
+    flex: none;
+    height: 38px;
+    padding: 0 8px;
+    font-size: 8px;
+    text-align-last: center;
+  }
+
+  /* CONTAINER PRINCIPAL: EMPILHAMENTO DOS MÓDULOS */
   .app-container {
     flex-direction: column;
     max-width: 100%;
-    gap: 12px;
-  }
-  .site-footer {
-    max-width: 100%;
-  }
-  .quick-tools {
-    width: 100%;
-    justify-content: space-between;
-  }
-  .window-nav {
-    display: none;
-  }
-  .mobile-only-btn {
-    display: inline-block;
+    gap: 10px;
   }
 
-  /* No mobile: os dois módulos se empilham perfeitamente */
   .main-console-unit {
     width: 100%;
     flex: none;
+    border-width: 4px;
   }
+
+  /* CABEÇALHO DO CONSOLE / JANELA */
+  .window-header {
+    padding: 6px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .window-header::before {
+    content: "● 8-BIT RADAR";
+    font-family: var(--font-pixel);
+    font-size: 8px;
+    color: #4b4843;
+    letter-spacing: 0.8px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .window-nav {
+    display: none;
+  }
+
+  .window-actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: auto;
+  }
+
+  .action-btn {
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 3px;
+  }
+
+  .action-btn .action-btn-icon {
+    width: 17px;
+    height: 17px;
+  }
+
+  .btn-label {
+    display: none;
+  }
+
+  .mobile-only-btn {
+    display: inline-flex;
+    font-size: 18px;
+    line-height: 1;
+    font-family: Arial, sans-serif;
+    color: #2b2a27;
+    font-weight: bold;
+  }
+
+  /* MENU MOBILE GAVETA */
+  .mobile-nav-drawer {
+    padding: 8px;
+    gap: 6px;
+    background: #1e202c;
+    border-bottom: 3px solid #0f1016;
+  }
+
+  .mobile-nav-link {
+    font-size: 8.5px;
+    padding: 10px 12px;
+    border-radius: 3px;
+    border: 2px solid #363c52;
+    background: #2a2e40;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.1s ease, border-color 0.1s ease;
+  }
+
+  .mobile-nav-link:hover,
+  .mobile-nav-link:active {
+    background: var(--btn-x-blue);
+    border-color: #64b5f6;
+    color: #ffffff;
+  }
+
+  /* SEÇÃO DE BUSCA COMPACTA */
+  .search-section {
+    padding: 8px 10px 10px;
+  }
+
+  .search-bar-box {
+    padding: 3px 4px 3px 8px;
+    border-width: 2px;
+  }
+
+  .search-field-icon {
+    width: 16px;
+    height: 16px;
+    margin-right: 6px;
+  }
+
+  .search-text-input {
+    font-size: 9.5px;
+    padding: 6px 0;
+  }
+
+  .search-text-input::placeholder {
+    font-size: 8px;
+  }
+
+  .btn-gps {
+    padding: 6px 10px;
+    font-size: 7.5px;
+    gap: 4px;
+    flex-shrink: 0;
+  }
+
+  .btn-gps .gps-btn-icon {
+    width: 14px;
+    height: 14px;
+  }
+
+  .search-results-popup {
+    left: 10px;
+    right: 10px;
+  }
+
+  /* VIEWPORT DO CENÁRIO & HUD 8-BIT */
   .weather-scene-viewport {
     aspect-ratio: auto;
-    height: clamp(340px, 46vh, 460px);
+    height: clamp(330px, 46vh, 420px);
     border-left-width: 4px;
     border-right-width: 4px;
   }
+
+  .scene-hud-overlay {
+    padding: 10px;
+  }
+
+  .hud-city-row {
+    gap: 6px;
+  }
+
+  .hud-city-title {
+    font-size: 11px;
+    max-width: calc(100% - 30px);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .btn-fav-star {
+    font-size: 16px;
+    padding: 0 2px;
+  }
+
+  .hud-temperature-row {
+    margin: 2px 0;
+    gap: 6px;
+  }
+
+  .hud-big-temp {
+    font-size: 36px;
+  }
+
+  .hud-temp-unit {
+    font-size: 14px;
+  }
+
+  .hud-condition-text {
+    font-size: 11px;
+    margin-bottom: 2px;
+  }
+
+  .hud-feels-like {
+    font-size: 18px;
+  }
+
+  /* MINI MÉTRICAS: 3 COLUNAS PERFEITAS EM UMA ÚNICA LINHA */
+  .hud-quick-metrics {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 100%;
+    gap: 5px;
+    margin-top: 10px;
+  }
+
+  .metric-badge {
+    padding: 5px 4px;
+    gap: 4px;
+    min-width: 0;
+    justify-content: flex-start;
+    border-width: 1.5px;
+  }
+
+  .badge-icon {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+  }
+
+  .badge-data {
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  .badge-label {
+    font-size: 6.5px;
+    letter-spacing: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .badge-val {
+    font-size: 15px;
+    line-height: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* BOTÃO PRESS START */
+  .hud-center-interactive {
+    margin-bottom: 6px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .press-start-button {
+    font-size: 8px;
+    padding: 7px 14px;
+    letter-spacing: 0.5px;
+    max-width: 290px;
+    width: 95%;
+    justify-content: center;
+  }
+
+  /* ESTAÇÃO COMPANHEIRA DE PREVISÃO 5 DIAS */
   .forecast-station-unit,
   .forecast-shelf-section {
     width: 100%;
     max-width: 100%;
     flex: none;
     border: 4px solid var(--thor-shell-dark);
-    padding: 10px;
-  }
-  .forecast-cards-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 6px;
-  }
-  .forecast-card-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding: 8px 6px;
-    gap: 6px;
-  }
-  .card-day-badge {
-    align-items: center;
-  }
-  .card-info-col {
-    align-items: center;
-  }
-  .card-weather-name {
-    white-space: normal;
-    height: 18px;
-    text-align: center;
+    padding: 10px 8px;
+    margin-top: 4px;
   }
 
-  .scene-hud-overlay {
-    padding: 12px;
+  .station-header {
+    padding-bottom: 8px;
+    margin-bottom: 8px;
   }
-  .hud-big-temp {
-    font-size: 38px;
-  }
-  .hud-city-title {
+
+  .station-title {
     font-size: 11px;
   }
-  .hud-quick-metrics {
+
+  .station-subtitle {
+    font-size: 7px;
+  }
+
+  .station-hint-bar {
+    font-size: 6.5px;
+    padding: 4px 6px;
+    margin-bottom: 8px;
+  }
+
+  /* CARDS DE PREVISÃO 5 DIAS EM LISTA ELEGANTE */
+  .forecast-cards-container {
+    display: flex;
+    flex-direction: column;
     gap: 6px;
   }
-  .metric-badge {
-    padding: 4px 6px;
-  }
-  .btn-label {
-    display: none;
-  }
-}
 
-@media (max-width: 680px) {
-  .btn-header-action {
-    flex: 1 1 calc(50% - 8px);
-    width: auto;
-    min-width: 140px;
-    max-width: none;
-  }
-}
-
-@media (max-width: 520px) {
-  .brand-subtitle {
-    display: none;
-  }
-  .btn-header-action {
-    flex: 1 1 100%;
-    width: 100%;
-  }
-  .hud-big-temp {
-    font-size: 32px;
-  }
-  .forecast-cards-container {
-    grid-template-columns: 1fr;
-  }
   .forecast-card-item {
     display: grid;
-    grid-template-columns: 46px 42px 1fr auto;
-    text-align: left;
+    grid-template-columns: 50px 36px 1fr auto;
     align-items: center;
+    gap: 8px;
+    padding: 7px 8px;
+    text-align: left;
+    border-radius: 3px;
   }
+
   .card-day-badge {
     align-items: flex-start;
+    gap: 2px;
   }
+
+  .day-name {
+    font-size: 8px;
+  }
+
+  .today-pill {
+    font-size: 6px;
+    padding: 1px 4px;
+  }
+
+  .card-icon-frame {
+    width: 36px;
+    height: 36px;
+  }
+
+  .card-weather-icon {
+    width: 28px;
+    height: 28px;
+  }
+
   .card-info-col {
     align-items: flex-start;
+    gap: 2px;
+    overflow: hidden;
   }
-  .card-icon-frame {
-    width: 40px;
-    height: 40px;
+
+  .card-weather-name {
+    font-size: 7.5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    height: auto;
   }
-  .card-weather-icon {
-    width: 32px;
-    height: 32px;
+
+  .card-rain-badge {
+    font-size: 7px;
+    padding: 1px 4px;
+    gap: 3px;
   }
+
+  .card-rain-icon {
+    width: 8px;
+    height: 8px;
+  }
+
+  .card-temp-range {
+    gap: 4px;
+  }
+
+  .temp-unit-box {
+    padding: 2px 4px;
+  }
+
+  .temp-tag {
+    font-size: 6px;
+  }
+
+  .temp-max-val,
+  .temp-min-val {
+    font-size: 15px;
+  }
+
+  .temp-sep {
+    font-size: 13px;
+  }
+
+  /* TELEMETRIA AMBIENTAL */
+  .station-telemetry-box {
+    padding: 8px 10px;
+    margin-top: 10px;
+    border-width: 2px;
+  }
+
+  .telemetry-box-title {
+    font-size: 8px;
+  }
+
+  .telemetry-mini-grid {
+    gap: 6px;
+  }
+
+  .telemetry-card {
+    padding: 6px 8px;
+  }
+
+  .telem-card-label {
+    font-size: 7px;
+  }
+
+  .telem-card-val {
+    font-size: 17px;
+  }
+
+  .telem-card-tag {
+    font-size: 6px;
+  }
+
+  .sun-times-row {
+    justify-content: space-around;
+    gap: 6px;
+  }
+
+  .sun-time-item {
+    font-size: 7px;
+    gap: 4px;
+  }
+
+  .sun-time-item strong {
+    font-size: 16px;
+  }
+
+  .station-footer-action {
+    margin-top: 10px;
+  }
+
+  .btn-station-open {
+    height: 38px;
+    font-size: 8px;
+    padding: 0 8px;
+    gap: 6px;
+  }
+
+  .station-btn-icon {
+    width: 14px;
+    height: 14px;
+  }
+
+  /* ABAS SECUNDÁRIAS (LOCAIS SALVOS & HISTÓRICO) */
+  .tab-panel-view {
+    padding: 12px 10px;
+    min-height: 220px;
+  }
+
+  .panel-title {
+    font-size: 8.5px;
+  }
+
+  .panel-subtitle {
+    font-size: 6.5px;
+  }
+
+  .saved-cards-grid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .saved-city-tile {
+    padding: 8px 10px;
+  }
+
+  .saved-city-name {
+    font-size: 8.5px;
+  }
+
+  .saved-city-temp {
+    font-size: 18px;
+  }
+
+  .history-entry {
+    padding: 8px 10px;
+  }
+
+  .history-city {
+    font-size: 8.5px;
+  }
+
+  /* MODAIS (ONBOARDING & DETALHES RETRO) */
+  .modal-backdrop-onboarding,
+  .modal-backdrop {
+    padding: 10px;
+  }
+
+  .onboarding-box,
+  .modal-window {
+    padding: 14px 12px;
+    border-width: 4px;
+    max-height: 90vh;
+    border-radius: 4px;
+  }
+
+  .onboarding-title,
+  .modal-header-title {
+    font-size: 10px;
+    line-height: 1.3;
+  }
+
+  .modal-header-bar {
+    padding-bottom: 8px;
+    margin-bottom: 12px;
+  }
+
+  .btn-close-modal {
+    font-size: 7.5px;
+    padding: 5px 8px;
+  }
+
+  .modal-close-icon {
+    width: 10px;
+    height: 10px;
+  }
+
+  .details-grid-stats {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+    margin-bottom: 12px;
+  }
+
+  .stat-card {
+    padding: 6px 8px;
+  }
+
+  .stat-label {
+    font-size: 6.5px;
+    margin-bottom: 2px;
+  }
+
+  .stat-value {
+    font-size: 18px;
+  }
+
+  .hourly-forecast-box {
+    padding: 10px 8px;
+    border-width: 2px;
+  }
+
+  .hourly-title {
+    font-size: 8px;
+    margin-bottom: 8px;
+  }
+
+  .hourly-bars-track {
+    height: 85px;
+    gap: 5px;
+    padding-bottom: 20px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .bar-column {
+    flex: 0 0 28px;
+  }
+
+  .bar-temp {
+    font-size: 12px;
+  }
+
+  .bar-hour {
+    font-size: 5.5px;
+  }
+
+  .onboarding-desc {
+    font-size: 13px;
+    margin-bottom: 14px;
+    line-height: 1.5;
+  }
+
+  .onboarding-btn-lg {
+    font-size: 9px;
+    padding: 10px 14px;
+    max-width: 100%;
+  }
+
+  .onboarding-search-box {
+    max-width: 100%;
+  }
+
+  .chips-list {
+    gap: 5px;
+  }
+
+  .chip-btn {
+    font-size: 7.5px;
+    padding: 5px 7px;
+  }
+
+  /* TOAST & RODAPÉ */
+  .pixel-toast {
+    bottom: 12px;
+    right: 12px;
+    left: 12px;
+    max-width: none;
+    font-size: 8px;
+    padding: 8px 12px;
+  }
+
   .site-footer {
+    padding: 12px 10px;
+    margin-top: 12px;
     flex-direction: column;
-    gap: 10px;
+    gap: 8px;
+    align-items: center;
+    text-align: center;
+    max-width: 100%;
   }
+
+  .footer-center-text p {
+    font-size: 7px;
+    line-height: 1.4;
+  }
+
   .footer-social-dock {
     position: static;
     margin-top: 4px;
+    gap: 12px;
     align-self: center;
   }
+
   .retro-social-btn {
-    width: 24px;
-    height: 24px;
+    width: 32px;
+    height: 32px;
   }
+
   .social-btn-icon {
     width: 20px;
     height: 20px;
+  }
+}
+
+/* SMARTPHONES PEQUENOS (< 520px) */
+@media (max-width: 520px) {
+  .top-controls-bar {
+    padding: 6px 8px;
+  }
+
+  .brand-badge {
+    gap: 8px;
+  }
+
+  .logo-icon {
+    width: 28px;
+    height: 28px;
+  }
+
+  .brand-title {
+    font-size: 18px;
+  }
+
+  .brand-subtitle {
+    display: none;
+  }
+
+  .btn-header-action {
+    height: 35px;
+    font-size: 7.5px;
+    gap: 6px;
+  }
+
+  .header-btn-icon {
+    width: 14px;
+    height: 14px;
+  }
+
+  .hud-big-temp {
+    font-size: 32px;
+  }
+
+  .hud-temp-unit {
+    font-size: 13px;
+  }
+
+  .hud-feels-like {
+    font-size: 16px;
+  }
+
+  .press-start-button {
+    font-size: 7.5px;
+    padding: 6px 10px;
+  }
+}
+
+/* SMARTPHONES ULTRA-COMPACTOS (< 380px) */
+@media (max-width: 380px) {
+  .btn-gps .gps-btn-label {
+    display: none;
+  }
+
+  .btn-gps {
+    padding: 6px 8px;
+  }
+
+  .forecast-card-item {
+    grid-template-columns: 44px 30px 1fr auto;
+    gap: 6px;
+    padding: 6px 6px;
+  }
+
+  .card-icon-frame {
+    width: 30px;
+    height: 30px;
+  }
+
+  .card-weather-icon {
+    width: 24px;
+    height: 24px;
+  }
+
+  .day-name {
+    font-size: 7px;
+  }
+
+  .temp-max-val,
+  .temp-min-val {
+    font-size: 13px;
+  }
+
+  .hud-big-temp {
+    font-size: 28px;
   }
 }
