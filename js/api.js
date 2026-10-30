@@ -228,6 +228,27 @@ export const WeatherAPI = {
   /**
    * Obtém GPS do navegador e resolve para município brasileiro
    */
+  async detectarLocalizacaoPorIp() {
+    try {
+      const resp = await fetch('https://get.geojs.io/v1/ip/geo.json');
+      if (resp.ok) {
+        const dados = await resp.json();
+        if (dados && dados.latitude && dados.longitude) {
+          return {
+            nome: dados.city || 'São Paulo',
+            estado: dados.region || 'SP',
+            pais: dados.country || 'Brasil',
+            lat: parseFloat(dados.latitude),
+            lon: parseFloat(dados.longitude)
+          };
+        }
+      }
+    } catch (e) {
+      console.warn('Falha na detecção por IP:', e);
+    }
+    return null;
+  },
+
   async obterGeolocalizacaoAtual() {
     return new Promise((resolve, reject) => {
       if (!navigator.geolocation) {
@@ -297,7 +318,10 @@ function processarRespostaOpenMeteo(data, cidade) {
   const sensacao = Math.round(current.apparent_temperature ?? tempAtual);
   const umidade = Math.round(current.relative_humidity_2m ?? 60);
   const ventoKmH = Math.round(current.wind_speed_10m ?? 10);
-  const precipitacaoMm = Math.round((current.precipitation || 0) * 10) / 10;
+  const probChuvaHoje = daily.precipitation_probability_max?.[0] ?? 0;
+  const precipitacaoDia = Math.round((daily.precipitation_sum?.[0] || 0) * 10) / 10;
+  const precipitacaoInstantanea = Math.round((current.precipitation || 0) * 10) / 10;
+  const precipitacaoMm = precipitacaoInstantanea > 0 ? precipitacaoInstantanea : precipitacaoDia;
   const pressaoHpa = Math.round(current.pressure_msl || 1013);
   const codigoClima = current.weather_code ?? 0;
   const isDay = current.is_day ?? 1;
@@ -345,6 +369,7 @@ function processarRespostaOpenMeteo(data, cidade) {
       umidade: umidade,
       ventoKmH: ventoKmH,
       precipitacaoMm: precipitacaoMm,
+      probabilidadeChuva: probChuvaHoje,
       pressaoHpa: pressaoHpa,
       codigoClima: codigoClima,
       condicaoDesc: '',

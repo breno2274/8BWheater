@@ -26,7 +26,7 @@
   <link rel="shortcut icon" href="img/favicon.svg?v=3" />
 
   <!-- Folha de Estilos Principal -->
-  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/style.css?v=3" />
 </head>
 
 <body>
@@ -149,11 +149,11 @@
         <div class="search-bar-box">
           <img src="img/ui/lupa.svg" class="search-field-icon" alt="" />
           <input type="text" id="inputBuscaCidade" class="search-text-input"
-            placeholder="Buscar município brasileiro (ex: São Paulo, Salvador, Curitiba, Manaus)..."
+            placeholder="Buscar cidade (ex: São Paulo, Rio, Curitiba)..."
             aria-label="Buscar cidade brasileira" autocomplete="off" />
           <button id="btnGpsBusca" class="btn-gps" title="Obter clima da sua localização atual via GPS">
             <img src="img/ui/pin.svg" class="gps-btn-icon" alt="" />
-            <span class="gps-btn-label">GPS AUTO</span>
+            <span class="gps-btn-label">GPS</span>
           </button>
         </div>
         <!-- Resultados com Autocompletar -->
@@ -185,7 +185,7 @@
             </div>
 
             <div class="hud-temperature-row">
-              <span id="hudValorTemp" class="hud-big-temp">--°</span>
+              <span id="hudValorTemp" class="hud-big-temp">--</span>
               <span id="hudUnidadeTemp" class="hud-temp-unit">°C</span>
             </div>
 
@@ -475,7 +475,7 @@
   </footer>
 
   <!-- Scripts (Compatível com file:// e servidores web) -->
-  <script src="js/bundle.js" defer></script>
+  <script src="js/bundle.js?v=3" defer></script>
 </body>
 
 </html>

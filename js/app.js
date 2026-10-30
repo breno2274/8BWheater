@@ -125,9 +125,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     const cidadeSalva = Storage.obterLocalizacaoUsuario();
     await carregarClima(cidadeSalva);
   } else {
-    // PRIMEIRA VEZ: Carrega cidade padrão no fundo para preencher o console e abre o modal
-    await carregarClima({ nome: 'Brasília', estado: 'DF', lat: -15.7801, lon: -47.9292, pais: 'Brasil' });
-    abrirModalOnboarding();
+    const localDetectado = await WeatherAPI.detectarLocalizacaoPorIp();
+    if (localDetectado) {
+      Storage.salvarLocalizacaoUsuario(localDetectado);
+      await carregarClima(localDetectado);
+    } else {
+      await carregarClima({ nome: 'São Paulo', estado: 'SP', lat: -23.5505, lon: -46.6333, pais: 'Brasil' });
+      abrirModalOnboarding();
+    }
   }
 
   // Toca o boot sound no primeiro clique de interação na página
@@ -299,7 +304,7 @@ function renderizarDadosClima() {
   const tempFmt = WeatherInterpreter.formatarTemp(atual.temperatura);
   const sensacaoFmt = WeatherInterpreter.formatarTemp(atual.sensacao);
 
-  DOM.hudValorTemp.textContent = tempFmt.replace('°C', '°');
+  DOM.hudValorTemp.textContent = Math.round(atual.temperatura);
   DOM.hudUnidadeTemp.textContent = '°C';
   DOM.hudNomeCondicao.textContent = interp.nome;
   DOM.hudSensacaoTermica.textContent = `Sensação térmica ${sensacaoFmt}`;
@@ -307,7 +312,13 @@ function renderizarDadosClima() {
   // 3. Mini Métricas
   DOM.hudUmidade.textContent = `${atual.umidade}%`;
   DOM.hudVento.textContent = `${atual.ventoKmH} km/h`;
-  DOM.hudPrecipitacao.textContent = `${atual.precipitacaoMm} mm`;
+  if (atual.precipitacaoMm > 0) {
+    DOM.hudPrecipitacao.textContent = `${atual.precipitacaoMm} mm`;
+  } else if (atual.probabilidadeChuva !== undefined && atual.probabilidadeChuva > 0) {
+    DOM.hudPrecipitacao.textContent = `${atual.probabilidadeChuva}%`;
+  } else {
+    DOM.hudPrecipitacao.textContent = '0 mm';
+  }
 
   // 4. Ícone de Favorito
   const isFav = Storage.isFavorito(Estado.cidadeAtual);
